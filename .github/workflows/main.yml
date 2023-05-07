@@ -1,0 +1,44 @@
+name: Build Custom Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Packer
+      uses: hashicorp/setup-packer@v1.0.3
+      with:
+        packer_version: '1.7.8'
+
+    - name: Log in to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Build Prerequisite Layer
+      run: |
+        packer build \
+          -var 'subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}' \
+          -var 'client_id=${{ secrets.AZURE_CLIENT_ID }}' \
+          -var 'client_secret=${{ secrets.AZURE_CLIENT_SECRET }}' \
+          -var 'tenant_id=${{ secrets.AZURE_TENANT_ID }}' \
+          -only=azure-arm.prerequisite-layer \
+          packer.json
+
+    - name: Build Application Layer
+      run: |
+        packer build \
+          -var 'subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}' \
+          -var 'client_id=${{ secrets.AZURE_CLIENT_ID }}' \
+          -var 'client_secret=${{ secrets.AZURE_CLIENT_SECRET }}' \
+          -var 'tenant_id=${{ secrets.AZURE_TENANT_ID }}' \
+          -only=azure-arm.application-layer \
+          packer.json
