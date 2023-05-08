@@ -35,7 +35,6 @@ jobs:
           -var 'client_secret=${{ secrets.AZURECLIENTSECRET }}' \
           -var 'tenant_id=${{ secrets.AZURETENANTID }}' \
           -only=azure-arm.prerequisite-layer \
-          packer.json
 
     - name: Build Application Layer
       run: |
@@ -45,4 +44,3 @@ jobs:
           -var 'client_secret=${{ secrets.AZURECLIENTSECRET }}' \
           -var 'tenant_id=${{ secrets.AZURETENANTID }}' \
           -only=azure-arm.application-layer \
-          packer.json
