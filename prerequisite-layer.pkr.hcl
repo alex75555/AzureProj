@@ -19,13 +19,6 @@ variable "tenant_id" {
 }
 
 
-  "variables": {
-    "packer_force": "false"
-}
-
-
-
-
 source "azure-arm" "prerequisite_layer" {
   subscription_id = var.subscription_id
   client_id       = var.client_id
@@ -53,9 +46,7 @@ source "azure-arm" "prerequisite_layer" {
 
 build {
   sources = ["source.azure-arm.prerequisite_layer"]
-  "type": "azure-arm",
-  "packer_force": "{{ user `packer_force` }}",
-
+  
   provisioner "powershell" {
     inline = [
       "Set-ExecutionPolicy Bypass -Scope Process -Force",
