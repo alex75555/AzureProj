@@ -13,6 +13,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
       
+    - name: Build Packer image
+      run: packer build -var 'packer_force=true' prerequisite-layer.pkr.hcl
+      
     - name: Install Azure CLI
       run: |
         curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
