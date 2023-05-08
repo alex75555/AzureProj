@@ -26,19 +26,19 @@ jobs:
     - name: Build Prerequisite Layer
       run: |
         packer build \
-          -var 'subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}' \
-          -var 'client_id=${{ secrets.AZURE_CLIENT_ID }}' \
-          -var 'client_secret=${{ secrets.AZURE_CLIENT_SECRET }}' \
-          -var 'tenant_id=${{ secrets.AZURE_TENANT_ID }}' \
+          -var 'subscription_id=${{ secrets.AZURESUBID }}' \
+          -var 'client_id=${{ secrets.AZURECLIENTID }}' \
+          -var 'client_secret=${{ secrets.AZURECLIENTSECRET }}' \
+          -var 'tenant_id=${{ secrets.AZURETENANTID }}' \
           -only=azure-arm.prerequisite-layer \
           packer.json
 
     - name: Build Application Layer
       run: |
         packer build \
-          -var 'subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}' \
-          -var 'client_id=${{ secrets.AZURE_CLIENT_ID }}' \
-          -var 'client_secret=${{ secrets.AZURE_CLIENT_SECRET }}' \
-          -var 'tenant_id=${{ secrets.AZURE_TENANT_ID }}' \
+          -var 'subscription_id=${{ secrets.AZURESUBID }}' \
+          -var 'client_id=${{ secrets.AZURECLIENTID }}' \
+          -var 'client_secret=${{ secrets.AZURECLIENTSECRET }}' \
+          -var 'tenant_id=${{ secrets.AZURETENANTID }}' \
           -only=azure-arm.application-layer \
           packer.json
