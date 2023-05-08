@@ -1,8 +1,31 @@
+variable "subscription_id" {
+  type    = string
+  sensitive = true
+}
+
+variable "client_id" {
+  type    = string
+  sensitive = true
+}
+
+variable "client_secret" {
+  type    = string
+  sensitive = true
+}
+
+variable "tenant_id" {
+  type    = string
+  sensitive = true
+}
+
+
+
+
 source "azure-arm" "application_layer" {
-  subscription_id = "6b33342f-4b32-4ae9-b77d-3ea9a9267bb8"
-  client_id       = "98cc195a-d1de-4066-8207-6744a637c691"
-  client_secret   = "WaR8Q~W7udsREpTbBVv_0y094gY2N4t4W_yzLbpo"
-  tenant_id       = "cfc96607-9f1b-4b85-939b-2003d1e9d258"
+  subscription_id = var.subscription_id
+  client_id       = var.client_id
+  client_secret   = var.client_secret
+  tenant_id       = var.tenant_id
 
   managed_image_resource_group_name = "MainGroup"
   managed_image_name                = "windows-server-2019-dotnet-core-app"
