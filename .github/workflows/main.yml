@@ -17,22 +17,6 @@ jobs:
       run: |
         curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
         
-     - name: Build prerequisite layer
-  run: packer build prerequisite-layer.pkr.hcl
-  env:
-    SUBSCRIPTION_ID: ${{ secrets.AZURESUBID }}
-    CLIENT_ID: ${{ secrets.AZURECLIENTID }}
-    CLIENT_SECRET: ${{ secrets.AZURECLIENTSECRET }}
-    TENANT_ID: ${{ secrets.AZURETENANTID }}
-
-      - name: Build application layer
-  run: packer build application-layer.pkr.hcl
-  env:
-    SUBSCRIPTION_ID: ${{ secrets.AZURESUBID }}
-    CLIENT_ID: ${{ secrets.AZURECLIENTID }}
-    CLIENT_SECRET: ${{ secrets.AZURECLIENTSECRET }}
-    TENANT_ID: ${{ secrets.AZURETENANTID }}
-
     - name: Set up Packer
       uses: hashicorp/setup-packer@main
       with:
@@ -44,19 +28,17 @@ jobs:
         creds: ${{ secrets.AZURECREDENTIALS }}
 
     - name: Build Prerequisite Layer
-      run: |
-        packer build \
-          -var 'subscription_id=${{ secrets.AZURESUBID }}' \
-          -var 'client_id=${{ secrets.AZURECLIENTID }}' \
-          -var 'client_secret=${{ secrets.AZURECLIENTSECRET }}' \
-          -var 'tenant_id=${{ secrets.AZURETENANTID }}' \
-          prerequisite-layer.pkr.hcl
+      run: packer build prerequisite-layer.pkr.hcl
+      env:
+        SUBSCRIPTION_ID: ${{ secrets.AZURESUBID }}
+        CLIENT_ID: ${{ secrets.AZURECLIENTID }}
+        CLIENT_SECRET: ${{ secrets.AZURECLIENTSECRET }}
+        TENANT_ID: ${{ secrets.AZURETENANTID }}
 
     - name: Build Application Layer
-      run: |
-        packer build \
-          -var 'subscription_id=${{ secrets.AZURESUBID }}' \
-          -var 'client_id=${{ secrets.AZURECLIENTID }}' \
-          -var 'client_secret=${{ secrets.AZURECLIENTSECRET }}' \
-          -var 'tenant_id=${{ secrets.AZURETENANTID }}' \
-          application-layer.pkr.hcl
+      run: packer build application-layer.pkr.hcl
+      env:
+        SUBSCRIPTION_ID: ${{ secrets.AZURESUBID }}
+        CLIENT_ID: ${{ secrets.AZURECLIENTID }}
+        CLIENT_SECRET: ${{ secrets.AZURECLIENTSECRET }}
+        TENANT_ID: ${{ secrets.AZURETENANTID }}
