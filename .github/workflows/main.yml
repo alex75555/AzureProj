@@ -1,3 +1,21 @@
+- name: Build prerequisite layer
+  run: packer build prerequisite-layer.pkr.hcl
+  env:
+    SUBSCRIPTION_ID: ${{ secrets.AZURESUBID }}
+    CLIENT_ID: ${{ secrets.AZURECLIENTID }}
+    CLIENT_SECRET: ${{ secrets.AZURECLIENTSECRET }}
+    TENANT_ID: ${{ secrets.AZURETENANTID }}
+
+- name: Build application layer
+  run: packer build application-layer.pkr.hcl
+  env:
+    SUBSCRIPTION_ID: ${{ secrets.AZURESUBID }}
+    CLIENT_ID: ${{ secrets.AZURECLIENTID }}
+    CLIENT_SECRET: ${{ secrets.AZURECLIENTSECRET }}
+    TENANT_ID: ${{ secrets.AZURETENANTID }}
+
+
+
 name: Build Custom Image
 
 on:
