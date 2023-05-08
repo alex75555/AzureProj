@@ -35,6 +35,7 @@ jobs:
           -var 'client_secret=${{ secrets.AZURECLIENTSECRET }}' \
           -var 'tenant_id=${{ secrets.AZURETENANTID }}' \
           -only=azure-arm.prerequisite-layer \
+          prerequisite-layer.pkr.hcl
 
     - name: Build Application Layer
       run: |
@@ -44,3 +45,4 @@ jobs:
           -var 'client_secret=${{ secrets.AZURECLIENTSECRET }}' \
           -var 'tenant_id=${{ secrets.AZURETENANTID }}' \
           -only=azure-arm.application-layer \
+          application-layer.pkr.hcl
