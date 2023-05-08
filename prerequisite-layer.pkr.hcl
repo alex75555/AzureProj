@@ -19,6 +19,11 @@ variable "tenant_id" {
 }
 
 
+  "variables": {
+    "packer_force": "false"
+}
+
+
 
 
 source "azure-arm" "prerequisite_layer" {
@@ -48,6 +53,8 @@ source "azure-arm" "prerequisite_layer" {
 
 build {
   sources = ["source.azure-arm.prerequisite_layer"]
+  "type": "azure-arm",
+  "packer_force": "{{ user `packer_force` }}",
 
   provisioner "powershell" {
     inline = [
