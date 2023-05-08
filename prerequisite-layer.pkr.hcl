@@ -1,18 +1,23 @@
 variable "subscription_id" {
-  type = string
+  type    = string
+  sensitive = true
 }
 
 variable "client_id" {
-  type = string
+  type    = string
+  sensitive = true
 }
 
 variable "client_secret" {
-  type = string
+  type    = string
+  sensitive = true
 }
 
 variable "tenant_id" {
-  type = string
+  type    = string
+  sensitive = true
 }
+
 
 
 
