@@ -26,22 +26,6 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURECREDENTIALS }}
-
-    - name: Build Prerequisite Layer
-      run: packer build prerequisite-layer.pkr.hcl
-      env:
-        SUBSCRIPTION_ID: ${{ secrets.AZURESUBID }}
-        CLIENT_ID: ${{ secrets.AZURECLIENTID }}
-        CLIENT_SECRET: ${{ secrets.AZURECLIENTSECRET }}
-        TENANT_ID: ${{ secrets.AZURETENANTID }}
-
-    - name: Build Application Layer
-      run: packer build application-layer.pkr.hcl
-      env:
-        SUBSCRIPTION_ID: ${{ secrets.AZURESUBID }}
-        CLIENT_ID: ${{ secrets.AZURECLIENTID }}
-        CLIENT_SECRET: ${{ secrets.AZURECLIENTSECRET }}
-        TENANT_ID: ${{ secrets.AZURETENANTID }}
         
     - name: Build Prerequisite Layer
       run: packer build -var 'subscription_id=${{ secrets.AZURESUBID }}' -var 'client_id=${{ secrets.AZURECLIENTID }}' -var 'client_secret=${{ secrets.AZURECLIENTSECRET }}' -var 'tenant_id=${{ secrets.AZURETENANTID }}' prerequisite-layer.pkr.hcl
