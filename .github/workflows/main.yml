@@ -42,3 +42,10 @@ jobs:
         CLIENT_ID: ${{ secrets.AZURECLIENTID }}
         CLIENT_SECRET: ${{ secrets.AZURECLIENTSECRET }}
         TENANT_ID: ${{ secrets.AZURETENANTID }}
+        
+    - name: Build Prerequisite Layer
+      run: packer build -var 'subscription_id=${{ secrets.AZURESUBID }}' -var 'client_id=${{ secrets.AZURECLIENTID }}' -var 'client_secret=${{ secrets.AZURECLIENTSECRET }}' -var 'tenant_id=${{ secrets.AZURETENANTID }}' prerequisite-layer.pkr.hcl
+
+    - name: Build Application Layer
+      run: packer build -var 'subscription_id=${{ secrets.AZURESUBID }}' -var 'client_id=${{ secrets.AZURECLIENTID }}' -var 'client_secret=${{ secrets.AZURECLIENTSECRET }}' -var 'tenant_id=${{ secrets.AZURETENANTID }}' application-layer.pkr.hcl
+
