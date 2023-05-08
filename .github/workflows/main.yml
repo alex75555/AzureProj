@@ -14,8 +14,6 @@
     CLIENT_SECRET: ${{ secrets.AZURECLIENTSECRET }}
     TENANT_ID: ${{ secrets.AZURETENANTID }}
 
-
-
 name: Build Custom Image
 
 on:
