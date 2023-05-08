@@ -1,3 +1,5 @@
+# Define variables
+
 variable "subscription_id" {
   type    = string
   sensitive = true
@@ -17,6 +19,8 @@ variable "tenant_id" {
   type    = string
   sensitive = true
 }
+
+# Define Azure resource
 
 
 source "azure-arm" "prerequisite_layer" {
